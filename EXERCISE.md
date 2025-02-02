@@ -85,7 +85,8 @@ Bibliotheken (bzw. hier Module) transitiv einbindet.
 Hier brauchen Sie dann das Keyword `requires transitive` im Modul-Deskriptor, um die
 drei anderen Module (nämlich `book-core`, `book-io` und `book-report`) transitiv zu importieren.
 
-Aber Achtung, die letzten beiden sind noch nicht modularisiert! Das müssen Sie noch nachholen.
+Aber Achtung! Die letzten beiden sind noch nicht modularisiert! Das müssen Sie noch nachholen,
+inklusive requires und exports.
 
 Nun können Sie aus der `app` Anwendung heraus nur noch das `book-starter` Modul importieren und
 erhalten implizit Zugriff auf die anderen Module.
@@ -99,6 +100,13 @@ Nutzen Sie das Tool `jdeps` um die Abhängigkeiten der Module zu analysieren.
 
 Dies erfolgt auf der Kommandozeile:
 
+Linux/Mac:
 ```shell
 jdeps --module-path app/target/classes:app/target/dependency --multi-release 9 --module jpms.app  
 ```
+
+Windows:
+```shell
+jdeps --module-path "app\target\classes;app\target\dependency" --multi-release 9 --module jpms.app 
+```
+

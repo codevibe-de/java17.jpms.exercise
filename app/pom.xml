@@ -14,13 +14,8 @@
 
     <dependencies>
         <dependency>
-            <groupId>de.codevibe</groupId>
-            <artifactId>book-core</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>de.codevibe</groupId>
-            <artifactId>book-report</artifactId>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>book-starter</artifactId>
             <version>${project.version}</version>
         </dependency>
     </dependencies>
