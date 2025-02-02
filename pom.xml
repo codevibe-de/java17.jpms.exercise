@@ -13,6 +13,8 @@
         <module>app</module>
         <module>book-core</module>
         <module>book-report</module>
+        <module>book-io</module>
+        <module>book-starter</module>
     </modules>
 
     <properties>

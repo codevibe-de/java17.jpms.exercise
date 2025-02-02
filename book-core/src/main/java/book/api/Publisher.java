@@ -2,7 +2,7 @@ package book.api;
 
 public class Publisher {
 
-    private String name;
+    private final String name;
 
     public Publisher(String name) {
         this.name = name;
