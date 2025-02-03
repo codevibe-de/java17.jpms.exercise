@@ -103,12 +103,20 @@ Dies erfolgt auf der Kommandozeile:
 Linux/Mac:
 
 ```shell
-jdeps --module-path app/target/classes:app/target/dependency --multi-release 9 --module jpms.app  
+jdeps --module-path app/target/classes:app/target/dependency --multi-release 9 -summary --module jpms.app  
 ```
 
 Windows:
 
 ```shell
-jdeps --module-path "app\target\classes;app\target\dependency" --multi-release 9 --module jpms.app 
+jdeps --module-path "app\target\classes;app\target\dependency" --multi-release 9 -summary --module jpms.app 
 ```
 
+## 8. Erzwingen der Öffnung für Deep Reflection
+
+Entfernen Sie aus dem Modul-Deskriptor von `jpms.book.core` das `opens` Statement (oder kommentieren es).
+
+Nutzen Sie das `--add-opens <module>/<package>=<reading-module>` Flag, um zur Laufzeit
+die Öffnung zu erzwingen.
+
+Achtung, welches Modul liest (bzw. hier schreibt) denn am Ende wirklich?
