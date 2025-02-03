@@ -42,7 +42,7 @@ Nun muss noch der Modul-Deskriptor von `app` dieses Modul importieren (mittels `
 Nun müsste die Anwendung wieder kompilierbar und ausführbar sein.
 
 - falls Eclipse die Fehlermeldung `java.lang.module.FindException: Module app not found`
-anzeigt, dann löschen Sie die Run Configuration und starten die Java Klasse erneut
+  anzeigt, dann löschen Sie die Run Configuration und starten die Java Klasse erneut
 
 ## 4. Öffnung für Reflection
 
@@ -50,33 +50,13 @@ Entkommentieren Sie in `BookApplication` nun die zwei Zeilen rund um die Erstell
 
 - ggf. müssen Imports ergänzt werden
 - und wenn die `FieldUtils` Klasse nicht gefunden werden kann, woran mag das liegen? Das bekommen Sie
-bestimmt schnell gelöst :)
+  bestimmt schnell gelöst :)
 
 Dann: Was passiert, wenn Sie die Anwendung ausführen?
 
 Beheben Sie das Problem, indem Sie das Package `book.api` für Reflection öffnen.
 
-## 5. Verwendung von ServiceLoader
-
-Nun nutzen wir das **ServiceLoader-Pattern**, um im Modul `app` eine
-`BookService` Implementierung zu laden und zu verwenden. Der Singleton Zugriff wird dann entfallen.
-
-Dazu muss folgendes passieren:
-
-- Deklaration des bereitgestellten Service im Modul-Deskriptor von `jpms.book.core` 
- mittels der `provides ... with ...` Syntax
-- Nutzung des Service im Modul-Deskriptor von `app` mittels des `uses` Keywords
-- Lookup des Service im Source-Code von `app` wie folgt (direkt nach `// add a single book` Kommentar):
-
-```java
-      BookService bookService = ServiceLoader.load(BookService.class)
-            .findFirst()
-            .orElseThrow(() -> new IllegalStateException("No BookService found"));
-```
-
-Nun können Sie statt des Singleton-Zugriffs die `bookService` Variable verwenden.
-
-## 6. Starter-Modul
+## 5. Starter-Modul
 
 Nutzen Sie das vorhandene `book-starter` Subprojekt, um dies zu einem "Starter" Modul zu machen.
 Ein Starter ist typischerweise eine leere Bibliothek (d.h. ohne Klassen), die einfach nur anderen
@@ -94,6 +74,26 @@ erhalten implizit Zugriff auf die anderen Module.
 Sie können nun gerne den restlichen Code entkommentieren und die Anwendung ausführen. Dann werden
 ein paar Bücher aus einer CSV Datei geladen und ein hübscher Report erstellt.
 
+## 6. Verwendung von ServiceLoader
+
+Nun nutzen wir das **ServiceLoader-Pattern**, um im Modul `app` eine
+`BookService` Implementierung zu laden und zu verwenden. Der Singleton Zugriff wird dann entfallen.
+
+Dazu muss folgendes passieren:
+
+- Deklaration des bereitgestellten Service im Modul-Deskriptor von `jpms.book.core`
+  mittels der `provides ... with ...` Syntax
+- Nutzung des Service im Modul-Deskriptor von `app` mittels des `uses` Keywords
+- Lookup des Service im Source-Code von `app` wie folgt (direkt nach `// add a single book` Kommentar):
+
+```java
+      BookService bookService = ServiceLoader.load(BookService.class)
+        .findFirst()
+        .orElseThrow(() -> new IllegalStateException("No BookService found"));
+```
+
+Nun können Sie statt des Singleton-Zugriffs die `bookService` Variable verwenden.
+
 ## 7. Verwendung von `jdeps`
 
 Nutzen Sie das Tool `jdeps` um die Abhängigkeiten der Module zu analysieren.
@@ -101,11 +101,13 @@ Nutzen Sie das Tool `jdeps` um die Abhängigkeiten der Module zu analysieren.
 Dies erfolgt auf der Kommandozeile:
 
 Linux/Mac:
+
 ```shell
 jdeps --module-path app/target/classes:app/target/dependency --multi-release 9 --module jpms.app  
 ```
 
 Windows:
+
 ```shell
 jdeps --module-path "app\target\classes;app\target\dependency" --multi-release 9 --module jpms.app 
 ```
