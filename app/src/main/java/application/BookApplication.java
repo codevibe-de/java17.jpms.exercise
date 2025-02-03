@@ -8,6 +8,7 @@ public class BookApplication {
 
     public static void main(String[] args) throws IOException, IllegalAccessException {
         System.out.println("Hello, Book Application!");
+        System.out.println("This class has been loaded from module: " + BookApplication.class.getModule());
 
         // -- add a single book
         BookService.INSTANCE.addBook("Java 11", "John Doe", 2018, null);
