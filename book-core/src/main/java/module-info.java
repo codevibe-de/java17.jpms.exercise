@@ -1,4 +1,5 @@
 import book.service.InMemoryBookService;
+import book.api.BookService;
 
 module jpms.book.core {
 	exports book.api;
